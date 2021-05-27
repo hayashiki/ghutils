@@ -1,0 +1,25 @@
+name: exec
+
+on:
+  push:
+    branches:
+      - "schedules"
+  schedule:
+    - cron: "0 10 * * 5" # JST 19:00 (Fri)
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.16
+        id: go
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+      - name: Run go
+        run: |
+          set -xe
+          go run .
